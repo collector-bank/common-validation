@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Collector.Common.Validation.AccountNumber;
+using Collector.Common.Validation.AccountNumber.Interface;
+using Collector.Common.Validation.AccountNumber.Implementation;
 using NUnit.Framework;
 
 namespace Collector.Common.Validation.Test.AccountNumber
@@ -13,10 +14,63 @@ namespace Collector.Common.Validation.Test.AccountNumber
         [SetUp]
         public void SetUp()
         {
-            _sut = new AccountNumberValidator(AppDomain.CurrentDomain.BaseDirectory + "banks.se.json");
+            _sut = new SwedishAccountNumberValidator(AppDomain.CurrentDomain.BaseDirectory + "banks.se.json");
         }
 
         [Theory]
+        [TestCase("9551", "Avanza Bank")]
+        [TestCase("9663", "Amfa Bank")]
+        [TestCase("9686", "BlueStep Finans")]
+        [TestCase("9472", "BNP")]
+        [TestCase("9040", "Citibank")]
+        [TestCase("1371", "Danske Bank")]
+        [TestCase("2448", "Danske Bank")]
+        [TestCase("9189", "Danske Bank")]
+        [TestCase("9193", "DnB Bank")]
+        [TestCase("9269", "DnB Bank")]
+        [TestCase("9708", "Ekobanken")]
+        [TestCase("9591", "Erik Penser Bankaktiebolag")]
+        [TestCase("9422", "Forex Bank")]
+        [TestCase("6142", "Handelsbanken")]
+        [TestCase("9275", "ICA Banken")]
+        [TestCase("9173", "IKANO Banken")]
+        [TestCase("9679", "JAK Medlemsbank")]
+        [TestCase("9397", "Landshypotek")]
+        [TestCase("9636", "Lån och Spar Bank Sverige")]
+        [TestCase("3408", "Länsförsäkringar Bank")]
+        [TestCase("9067", "Länsförsäkringar Bank")]
+        [TestCase("9021", "Länsförsäkringar Bank")]
+        [TestCase("9230", "Marginalen Bank")]
+        [TestCase("9641", "Nordax Bank")]
+        [TestCase("1112", "Nordea")]
+        [TestCase("1526", "Nordea")]
+        [TestCase("2073", "Nordea")]
+        [TestCase("3299", "Nordea")]
+        [TestCase("3301", "Nordea")]
+        [TestCase("3376", "Nordea")]
+        [TestCase("3410", "Nordea")]
+        [TestCase("3951", "Nordea")]
+        [TestCase("4727", "Nordea")]
+        [TestCase("3300", "Nordea")]
+        [TestCase("3782", "Nordea")]
+        [TestCase("9531", "Nordea")]
+        [TestCase("9961", "Nordea")]
+        [TestCase("9108", "Nordnet Bank")]
+        [TestCase("9285", "Resurs Bank")]
+        [TestCase("9892", "Riksgälden")]
+        [TestCase("9099", "Royal Bank of Scotland")]
+        [TestCase("9464", "Santander Consumer Bank")]
+        [TestCase("9257", "SBAB")]
+        [TestCase("5742", "SEB")]
+        [TestCase("9123", "SEB")]
+        [TestCase("9147", "SEB")]
+        [TestCase("9169", "Skandiabanken")]
+        [TestCase("9574", "Sparbanken Syd")]
+        [TestCase("7384", "Swedbank")]
+        [TestCase("9321", "Swedbank")]
+        [TestCase("8748", "Swedbank")]
+        [TestCase("87384", "Swedbank")]
+        [TestCase("2382", "Ålandsbanken")]
         [TestCase("9561", "Avanza Bank")]
         [TestCase("9046", "Citibank")]
         [TestCase("9188", "Danske Bank")]
@@ -32,29 +86,29 @@ namespace Collector.Common.Validation.Test.AccountNumber
         [TestCase("3407", "Länsförsäkringar Bank")]
         [TestCase("9631", "Lån och Spar Bank Sverige")]
         [TestCase("2300", "Ålandsbanken")]
-        public void Identify_Bank_By_ClearingNumber(string clearingNumber, string expectedBankName)
+        public void Identify_Bank_And_Expect_Name(string number, string expectedBankName)
         {
-            var result = _sut.Identify(clearingNumber).Result;
+            var result = _sut.Identify(number);
 
             Assert.That(result.Name, Is.EqualTo(expectedBankName));
         }
 
         [Theory]
-        [TestCase("8123", "1234567", "Swedbank")]
-        [TestCase("8123-5", "7654321", "Swedbank")]
-        public void Validate_AccountNumber_And_Expect_Exception(string clearingNumber, string accountNumber,
+        [TestCase("81231234568", "Swedbank")]
+        [TestCase("8123-57654321", "Swedbank")]
+        public void Validate_AccountNumber_And_Expect_Exception(string number,
                                                                 string expectedBankName)
         {
-            Assert.ThrowsAsync<ArgumentException>(() => _sut.Validate(clearingNumber, accountNumber));
+            Assert.Throws<ArgumentException>(() => _sut.Validate(number));
         }
 
         [Theory]
-        [TestCase("1110", "0000100", "Nordea")]
-        [TestCase("3300", "0009100", "Nordea")]
-        public void Validate_AccountNumber_and_Expect_BankName(string clearingNumber, string accountNumber,
+        [TestCase("11100000100", "Nordea")]
+        [TestCase("33000009100", "Nordea")]
+        public void Validate_AccountNumber_and_Expect_BankName(string number,
                                                                string expectedBankName)
         {
-            var result = _sut.Validate(clearingNumber, accountNumber).Result;
+            var result = _sut.Validate(number);
 
             Assert.That(result.Name, Is.EqualTo(expectedBankName));
         }
@@ -64,7 +118,7 @@ namespace Collector.Common.Validation.Test.AccountNumber
         [TestCaseSource(nameof(GetNumbers))]
         public void Validate_AccountNumbers_From_Source_Where_Bank_Is_Recognised(string number)
         {
-            Assert.DoesNotThrowAsync(() => _sut.Validate(number));
+            Assert.DoesNotThrow(() => _sut.Validate(number));
         }
 
         private static IEnumerable<object> GetNumbers()

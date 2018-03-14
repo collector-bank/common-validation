@@ -1,8 +1,8 @@
-﻿namespace Collector.Common.Validation.AccountNumber
+﻿namespace Collector.Common.Validation.AccountNumber.Validators
 {
     internal static class Mod11
     {
-        internal const int Id = 11;
+        internal const int ID = 11;
 
         internal static bool Validate(string number)
         {

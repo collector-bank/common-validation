@@ -1,4 +1,4 @@
-﻿namespace Collector.Common.Validation.AccountNumber
+﻿namespace Collector.Common.Validation.AccountNumber.Validators
 {
     internal static class Mod10
     {

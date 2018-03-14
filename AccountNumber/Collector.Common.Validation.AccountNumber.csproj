@@ -1,13 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <Authors>Collector AB</Authors>
+    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
+    <Authors>Magnus Törnvall</Authors>
     <Company>Collector AB</Company>
-    <Description>Perform bank account number validation and bank identification (by clearing number). Based on kontonummer.js by Jonas Persson (https://jop.io/).</Description>
-    <PackageTags>validation account number bank identification</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Description>Tools to identify bank and validate account number.</Description>
+    <PackageTags>validation, bank, account number</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Product>Bank account number validator</Product>
+    <PackageLicenseUrl>https://github.com/collector-bank/common-validation/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/collector-bank/common-validation</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
