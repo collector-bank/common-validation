@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -12,14 +12,14 @@ namespace Collector.Common.Validation.NationalIdentifier.Validators
     ///        is calculated by taking the remainder of the value DDMMYYZZZ divide by 31.
     /// Century of the birthdate is determined by the Century sign
     ///     + = 1800
-    ///     - = 1900
-    ///     A = 2000
+    ///     -, Y, X, W, V or U = 1900
+    ///     A, B, C, D, E or F = 2000
     /// </remarks>
     public class FinnishNationalIdentifierValidator : NationalIdentifierValidator
     {
         /// <remarks>Regex has been check with SDL Regex Fuzzer tool so it should not be a source for DOS attacks. IF YOU UPDATE THE REGEX recheck it again with the SDL tool.</remarks>>
         private static readonly Regex NationalIdentifierWhitelistValidator =
-            new Regex(@"^[0-3]\d[0-1]\d{3}[\-+A]\d{3}[0123456789ABCDEFHJKLMNPRSTUVWXY]$", RegexOptions.ECMAScript);
+            new Regex(@"^[0-3]\d[0-1]\d{3}[\-+ABCDEFYXWVU]\d{3}[0123456789ABCDEFHJKLMNPRSTUVWXY]$", RegexOptions.ECMAScript);
 
         private static readonly char[] ControlChar = "0123456789ABCDEFHJKLMNPRSTUVWXY".ToCharArray();
 
@@ -27,7 +27,17 @@ namespace Collector.Common.Validation.NationalIdentifier.Validators
         {
             {'+', 1800},
             {'-', 1900},
-            {'A', 2000}
+            {'Y', 1900},
+            {'X', 1900},
+            {'W', 1900},
+            {'V', 1900},
+            {'U', 1900},
+            {'A', 2000},
+            {'B', 2000},
+            {'C', 2000},
+            {'D', 2000},
+            {'E', 2000},
+            {'F', 2000}
         };
 
         public override CountryCode CountryCode => CountryCode.FI;

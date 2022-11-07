@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Collector.Common.Validation.NationalIdentifier.Validators;
 using NUnit.Framework;
@@ -66,6 +66,26 @@ namespace Collector.Common.Validation.Test.NationalIdentifier
                     yield return "181285-8056";
                     yield return "290232-2001"; // 1932 has leapyear
                     yield return "290204A500F"; // 2004 has leapyear
+                    yield return "010594Y9021";
+                    yield return "020594X903P";
+                    yield return "020594X902N";
+                    yield return "030594W903B";
+                    yield return "030694W9024";
+                    yield return "040594V9030";
+                    yield return "040594V902Y";
+                    yield return "050594U903M";
+                    yield return "050594U902L";
+                    yield return "010516B903X";
+                    yield return "010516B902W";
+                    yield return "020516C903K";
+                    yield return "020516C902J";
+                    yield return "030516D9037";
+                    yield return "030516D9026";
+                    yield return "010501E9032";
+                    yield return "020502E902X";
+                    yield return "020503F9037";
+                    yield return "020504A902E";
+                    yield return "020504B904H";
                 }
             }
 
