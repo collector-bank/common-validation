@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net451</TargetFrameworks>
-    <Authors>Said Outgajjouft, Nils Grashorn</Authors>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Company>Collector Bank AB</Company>
     <Product>National Identifier Validator</Product>
     <Description>Tools to validate and normalise national identifiers (social security numbers) of Denmark, Finland, Norway and Sweden.</Description>
@@ -12,10 +11,13 @@
     <PackageTags>validation, normalization, social security number, national identifier, personal number, sweden, denmark, finland, norway</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageIconUrl>https://raw.githubusercontent.com/collector-bank/common-correlation/master/icon.png</PackageIconUrl>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.4.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
