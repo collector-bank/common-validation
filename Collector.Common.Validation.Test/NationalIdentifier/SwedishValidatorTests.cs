@@ -100,6 +100,7 @@ namespace Collector.Common.Validation.Test.NationalIdentifier
                     yield return "330229-7316"; // 1933 does not have leapyear
                     yield return "050229-5009"; // 2005 does not have leapyear
                     yield return "581023-9574"; // Control number not correct
+                    yield return "000000000000"; // Valid format. Invalid year, month, day etc.
                 }
             }
 

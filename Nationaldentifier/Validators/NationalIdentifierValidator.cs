@@ -57,6 +57,11 @@ namespace Collector.Common.Validation.NationalIdentifier.Validators
 
         internal static bool IsValidDate(int year, int month, int day)
         {
+            if (year <= 0 || year > 9999)
+            {
+                return false;
+            }
+
             var maxDaysInMonth = new[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
             if (DateTime.IsLeapYear(year))
                 maxDaysInMonth[1] = 29;
